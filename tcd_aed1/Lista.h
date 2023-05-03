@@ -1,0 +1,12 @@
+typedef struct polinomio Poli;
+typedef struct lista Lista;
+Lista* criar ();
+typedef struct no No;
+void mostrar (Lista *l, int num);
+int inserir (Lista *l, Poli x);
+int listavazia (Lista*l);
+int removerk (Lista *l, int idx, int k);
+int reinicializar (Lista *l, int idx);
+int soma (Lista *l, int idx, Lista *J, int idy);
+int valorpx (Lista *l, int idx, int num);
+int inseretermo (Lista *l, int idx, int coef, int pot);
