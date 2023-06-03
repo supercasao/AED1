@@ -1,22 +1,27 @@
-typedef struct polinomio {
-    int id;
-    int *coeficientes;
-    int *potencias;
-} Poli;
-/*
-struct do tipo polinomio, com tres campos
-id - identificador do polinomio
-coeficientes - ponteiro que aponta para um vetor alocado dinamicamente que armazena os coeficientes
-potencias - ponteiro que aponta para um vetor alocado dinamicamente que armazena as potencias
-*/
-typedef struct lista Lista;
-Lista* criar ();
-typedef struct no No;
-void mostrar (Lista *l, int num);
-int inserir (Lista *l, Poli x);
-int listavazia (Lista*l);
-int removerk (Lista *l, int idx, int k);
-int reinicializar (Lista *l, int idx);
-int soma (Lista *l, int idx, Lista *J, int idy);
-int valorpx (Lista *l, int idx, int num);
-int inseretermo (Lista *l, int idx, int coef, int pot);
+#ifndef LISTA_H
+#define LISTA_H
+
+typedef struct no {
+    int valor;
+    struct no* proximo;
+} No;
+
+typedef struct {
+    No* inicio;
+    No* fim;
+    int tamanho;
+} Lista;
+
+Lista* criar_lista();
+void destruir_lista(Lista* lista);
+void inserir_inicio(Lista* lista, int valor);
+void inserir_fim(Lista* lista, int valor);
+void inserir_posicao(Lista* lista, int valor, int posicao);
+void remover_inicio(Lista* lista);
+void remover_fim(Lista* lista);
+void remover_posicao(Lista* lista, int posicao);
+int obter_elemento(Lista* lista, int posicao);
+int tamanho_lista(Lista* lista);
+void exibir_lista(Lista* lista);
+
+#endif /* LISTA_H */
