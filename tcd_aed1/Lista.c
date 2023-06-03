@@ -283,6 +283,80 @@ void reinicializar_polinomio(Polinomio* polinomio) {
     polinomio->tamanho = 1;
 }
 
+
+Polinomio* somar_polinomios(Polinomio* polinomio1, Polinomio* polinomio2) {
+    Polinomio* resultado = inicializar_polinomio();
+
+    int indice1 = 0;
+    int indice2 = 0;
+
+    while (indice1 < polinomio1->tamanho && indice2 < polinomio2->tamanho) {
+        Termo termo1 = polinomio1->termos[indice1];
+        Termo termo2 = polinomio2->termos[indice2];
+
+        if (termo1.expoente == termo2.expoente) {
+            int coeficiente = termo1.coeficiente + termo2.coeficiente;
+            inserir_termo(resultado, coeficiente, termo1.expoente);
+            indice1++;
+            indice2++;
+        } else if (termo1.expoente < termo2.expoente) {
+            inserir_termo(resultado, termo1.coeficiente, termo1.expoente);
+            indice1++;
+        } else {
+            inserir_termo(resultado, termo2.coeficiente, termo2.expoente);
+            indice2++;
+        }
+    }
+
+    // Copiar os termos restantes do polinômio 1
+    while (indice1 < polinomio1->tamanho) {
+        Termo termo1 = polinomio1->termos[indice1];
+        inserir_termo(resultado, termo1.coeficiente, termo1.expoente);
+        indice1++;
+    }
+
+    // Copiar os termos restantes do polinômio 2
+    while (indice2 < polinomio2->tamanho) {
+        Termo termo2 = polinomio2->termos[indice2];
+        inserir_termo(resultado, termo2.coeficiente, termo2.expoente);
+        indice2++;
+    }
+
+    return resultado;
+}
+
+void calcular_valor_polinomio(Polinomio** polinomios, int num_polinomios, float x) {
+    float menor_valor = INFINITY;
+    float maior_valor = -INFINITY;
+    int indice_menor_valor = -1;
+    int indice_maior_valor = -1;
+
+    for (int i = 0; i < num_polinomios; i++) {
+        Polinomio* polinomio = polinomios[i];
+        float valor = 0.0;
+
+        for (int j = 0; j < polinomio->tamanho; j++) {
+            Termo termo = polinomio->termos[j];
+            valor += termo.coeficiente * pow(x, termo.expoente);
+        }
+
+        printf("Valor de P(x) para o polinômio %d: %.2f\n", i + 1, valor);
+
+        if (valor < menor_valor) {
+            menor_valor = valor;
+            indice_menor_valor = i;
+        }
+
+        if (valor > maior_valor) {
+            maior_valor = valor;
+            indice_maior_valor = i;
+        }
+    }
+
+    printf("Polinômio com o menor valor: %d\n", indice_menor_valor + 1);
+    printf("Polinômio com o maior valor: %d\n", indice_maior_valor + 1);
+}
+
 void destruir_polinomio(Polinomio* polinomio) {
     free(polinomio->termos);
     free(polinomio);
