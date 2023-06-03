@@ -166,3 +166,83 @@ void exibir_lista(Lista* lista) {
     }
     printf("\n");
 }
+
+Polinomio* inicializar_polinomio() {
+    Polinomio* polinomio = (Polinomio*)malloc(sizeof(Polinomio));
+    polinomio->termos = NULL;
+    polinomio->tamanho = 0;
+    return polinomio;
+}
+
+void exibir_polinomio(Polinomio* polinomio) {
+    if (polinomio->tamanho == 0) {
+        printf("P(x) = 0\n");
+        return;
+    }
+
+    printf("P(x) = ");
+    for (int i = 0; i < polinomio->tamanho; i++) {
+        Termo termo = polinomio->termos[i];
+        printf("%dx^%d ", termo.coeficiente, termo.expoente);
+        if (i < polinomio->tamanho - 1) {
+            printf("+ ");
+        }
+    }
+    printf("\n");
+}
+
+void inserir_termo(Polinomio* polinomio, int coeficiente, int expoente) {
+    // Verificar se o termo já existe
+    for (int i = 0; i < polinomio->tamanho; i++) {
+        if (polinomio->termos[i].expoente == expoente) {
+            int opcao;
+            printf("O termo %dx^%d já existe no polinômio. Escolha uma opção:\n", coeficiente, expoente);
+            printf("1. Inserir o novo termo na posição correspondente\n");
+            printf("2. Substituir o termo existente pelo novo termo\n");
+            printf("3. Adicionar o valor do novo termo ao valor já existente no termo\n");
+            printf("Opção: ");
+            scanf("%d", &opcao);
+
+            switch (opcao) {
+                case 1: {
+                    // Inserir o novo termo na posição correspondente
+                    polinomio->termos = (Termo*)realloc(polinomio->termos, (polinomio->tamanho + 1) * sizeof(Termo));
+                    for (int j = polinomio->tamanho - 1; j >= i; j--) {
+                        polinomio->termos[j + 1] = polinomio->termos[j];
+                    }
+                    polinomio->termos[i].coeficiente = coeficiente;
+                    polinomio->termos[i].expoente = expoente;
+                    polinomio->tamanho++;
+                    break;
+                }
+                case 2: {
+                    // Substituir o termo existente pelo novo termo
+                    polinomio->termos[i].coeficiente = coeficiente;
+                    break;
+                }
+                case 3: {
+                    // Adicionar o valor do novo termo ao valor já existente no termo
+                    polinomio->termos[i].coeficiente += coeficiente;
+                    break;
+                }
+                default: {
+                    printf("Opção inválida!\n");
+                    return;
+                }
+            }
+
+            return;
+        }
+    }
+
+    // Inserir o novo termo no final do polinômio
+    polinomio->termos = (Termo*)realloc(polinomio->termos, (polinomio->tamanho + 1) * sizeof(Termo));
+    polinomio->termos[polinomio->tamanho].coeficiente = coeficiente;
+    polinomio->termos[polinomio->tamanho].expoente = expoente;
+    polinomio->tamanho++;
+}
+
+void destruir_polinomio(Polinomio* polinomio) {
+    free(polinomio->termos);
+    free(polinomio);
+}
