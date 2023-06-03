@@ -272,6 +272,17 @@ void eliminar_termo(Polinomio* polinomio, int expoente) {
     polinomio->termos = (Termo*)realloc(polinomio->termos, polinomio->tamanho * sizeof(Termo));
 }
 
+void reinicializar_polinomio(Polinomio* polinomio) {
+    // Limpar os termos existentes
+    free(polinomio->termos);
+
+    // Criar um novo termo com coeficiente 0 e expoente 0
+    polinomio->termos = (Termo*)malloc(sizeof(Termo));
+    polinomio->termos[0].coeficiente = 0;
+    polinomio->termos[0].expoente = 0;
+    polinomio->tamanho = 1;
+}
+
 void destruir_polinomio(Polinomio* polinomio) {
     free(polinomio->termos);
     free(polinomio);
