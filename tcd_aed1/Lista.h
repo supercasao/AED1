@@ -1,4 +1,14 @@
-typedef struct polinomio Poli;
+typedef struct polinomio {
+    int id;
+    int *coeficientes;
+    int *potencias;
+} Poli;
+/*
+struct do tipo polinomio, com tres campos
+id - identificador do polinomio
+coeficientes - ponteiro que aponta para um vetor alocado dinamicamente que armazena os coeficientes
+potencias - ponteiro que aponta para um vetor alocado dinamicamente que armazena as potencias
+*/
 typedef struct lista Lista;
 Lista* criar ();
 typedef struct no No;
