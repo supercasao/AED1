@@ -176,16 +176,20 @@ Polinomio* inicializar_polinomio() {
 
 void exibir_polinomio(Polinomio* polinomio) {
     if (polinomio->tamanho == 0) {
-        printf("P(x) = 0\n");
+        printf("P(x) = 0x^0\n");
         return;
     }
 
     printf("P(x) = ");
     for (int i = 0; i < polinomio->tamanho; i++) {
         Termo termo = polinomio->termos[i];
-        printf("%dx^%d ", termo.coeficiente, termo.expoente);
-        if (i < polinomio->tamanho - 1) {
-            printf("+ ");
+
+        if (termo.coeficiente != 0) {
+            // Exibir o coeficiente e o expoente somente se o coeficiente for diferente de zero
+            if (termo.coeficiente > 0 && i != 0) {
+                printf("+ ");
+            }
+            printf("%dx^%d ", termo.coeficiente, termo.expoente);
         }
     }
     printf("\n");
@@ -240,6 +244,32 @@ void inserir_termo(Polinomio* polinomio, int coeficiente, int expoente) {
     polinomio->termos[polinomio->tamanho].coeficiente = coeficiente;
     polinomio->termos[polinomio->tamanho].expoente = expoente;
     polinomio->tamanho++;
+}
+
+void eliminar_termo(Polinomio* polinomio, int expoente) {
+    int indice = -1;
+
+    // Encontrar o índice do termo com o expoente k
+    for (int i = 0; i < polinomio->tamanho; i++) {
+        if (polinomio->termos[i].expoente == expoente) {
+            indice = i;
+            break;
+        }
+    }
+
+    if (indice == -1) {
+        printf("Termo com expoente %d não encontrado no polinômio.\n", expoente);
+        return;
+    }
+
+    // Remover o termo do polinômio
+    for (int i = indice; i < polinomio->tamanho - 1; i++) {
+        polinomio->termos[i] = polinomio->termos[i + 1];
+    }
+    polinomio->tamanho--;
+
+    // Redimensionar o array de termos
+    polinomio->termos = (Termo*)realloc(polinomio->termos, polinomio->tamanho * sizeof(Termo));
 }
 
 void destruir_polinomio(Polinomio* polinomio) {
