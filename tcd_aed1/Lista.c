@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Lista* criar_lista() {
+Lista* criarLista() {
     Lista* lista = (Lista*)malloc(sizeof(Lista));
     lista->inicio = NULL;
     lista->fim = NULL;
@@ -12,7 +12,7 @@ Lista* criar_lista() {
     return lista;
 }
 
-void destruir_lista(Lista* lista) {
+void destruiLista(Lista* lista) {
     No* no_atual = lista->inicio;
     while (no_atual != NULL) {
         No* proximo = no_atual->proximo;
@@ -22,7 +22,7 @@ void destruir_lista(Lista* lista) {
     free(lista);
 }
 
-void inserir_inicio(Lista* lista, int valor) {
+void inserirInicio(Lista* lista, int valor) {
     No* novo_no = (No*)malloc(sizeof(No));
     novo_no->valor = valor;
     novo_no->proximo = lista->inicio;
@@ -33,7 +33,7 @@ void inserir_inicio(Lista* lista, int valor) {
     lista->tamanho++;
 }
 
-void inserir_fim(Lista* lista, int valor) {
+void inserirFim(Lista* lista, int valor) {
     No* novo_no = (No*)malloc(sizeof(No));
     novo_no->valor = valor;
     novo_no->proximo = NULL;
@@ -46,7 +46,7 @@ void inserir_fim(Lista* lista, int valor) {
     lista->tamanho++;
 }
 
-void inserir_posicao(Lista* lista, int valor, int posicao) {
+void inserirPosicao(Lista* lista, int valor, int posicao) {
     if (posicao < 0 || posicao > lista->tamanho) {
         printf("Posição inválida.\n");
         return;
@@ -73,7 +73,7 @@ void inserir_posicao(Lista* lista, int valor, int posicao) {
     }
 }
 
-void remover_inicio(Lista* lista) {
+void removerInicio(Lista* lista) {
     if (lista->inicio == NULL) {
         printf("A lista está vazia.\n");
         return;
@@ -89,7 +89,7 @@ void remover_inicio(Lista* lista) {
     }
 }
 
-void remover_fim(Lista* lista) {
+void removerFim(Lista* lista) {
     if (lista->fim == NULL) {
         printf("A lista está vazia.\n");
         return;
@@ -113,7 +113,7 @@ void remover_fim(Lista* lista) {
     lista->tamanho--;
 }
 
-void remover_posicao(Lista* lista, int posicao) {
+void removerPosicao(Lista* lista, int posicao) {
     if (posicao < 0 || posicao >= lista->tamanho) {
         printf("Posição inválida.\n");
         return;
@@ -139,7 +139,7 @@ void remover_posicao(Lista* lista, int posicao) {
     }
 }
 
-int obter_elemento(Lista* lista, int posicao) {
+int obterElemento(Lista* lista, int posicao) {
     if (posicao < 0 || posicao >= lista->tamanho) {
         printf("Posição inválida.\n");
         return -1;
@@ -154,11 +154,11 @@ int obter_elemento(Lista* lista, int posicao) {
     return no_atual->valor;
 }
 
-int tamanho_lista(Lista* lista) {
+int tamanhoLista(Lista* lista) {
     return lista->tamanho;
 }
 
-void exibir_lista(Lista* lista) {
+void exibirLista(Lista* lista) {
     No* no_atual = lista->inicio;
     while (no_atual != NULL) {
         printf("%d ", no_atual->valor);
@@ -167,14 +167,14 @@ void exibir_lista(Lista* lista) {
     printf("\n");
 }
 
-Polinomio* inicializar_polinomio() {
+Polinomio* inicializarPolinomio() {
     Polinomio* polinomio = (Polinomio*)malloc(sizeof(Polinomio));
     polinomio->termos = NULL;
     polinomio->tamanho = 0;
     return polinomio;
 }
 
-void exibir_polinomio(Polinomio* polinomio) {
+void exibirPolinomio(Polinomio* polinomio) {
     if (polinomio->tamanho == 0) {
         printf("P(x) = 0x^0\n");
         return;
@@ -195,7 +195,7 @@ void exibir_polinomio(Polinomio* polinomio) {
     printf("\n");
 }
 
-void inserir_termo(Polinomio* polinomio, int coeficiente, int expoente) {
+void inserirTermo(Polinomio* polinomio, int coeficiente, int expoente) {
     // Verificar se o termo já existe
     for (int i = 0; i < polinomio->tamanho; i++) {
         if (polinomio->termos[i].expoente == expoente) {
@@ -246,7 +246,7 @@ void inserir_termo(Polinomio* polinomio, int coeficiente, int expoente) {
     polinomio->tamanho++;
 }
 
-void eliminar_termo(Polinomio* polinomio, int expoente) {
+void eliminarTermo(Polinomio* polinomio, int expoente) {
     int indice = -1;
 
     // Encontrar o índice do termo com o expoente k
@@ -272,7 +272,7 @@ void eliminar_termo(Polinomio* polinomio, int expoente) {
     polinomio->termos = (Termo*)realloc(polinomio->termos, polinomio->tamanho * sizeof(Termo));
 }
 
-void reinicializar_polinomio(Polinomio* polinomio) {
+void reinicializarPolinomio(Polinomio* polinomio) {
     // Limpar os termos existentes
     free(polinomio->termos);
 
@@ -284,7 +284,7 @@ void reinicializar_polinomio(Polinomio* polinomio) {
 }
 
 
-Polinomio* somar_polinomios(Polinomio* polinomio1, Polinomio* polinomio2) {
+Polinomio* somarPolinomios(Polinomio* polinomio1, Polinomio* polinomio2) {
     Polinomio* resultado = inicializar_polinomio();
 
     int indice1 = 0;
@@ -325,7 +325,7 @@ Polinomio* somar_polinomios(Polinomio* polinomio1, Polinomio* polinomio2) {
     return resultado;
 }
 
-void calcular_valor_polinomio(Polinomio** polinomios, int num_polinomios, float x) {
+void calcular_valorPolinomio(Polinomio* polinomios, int num_polinomios, float x) {
     float menor_valor = INFINITY;
     float maior_valor = -INFINITY;
     int indice_menor_valor = -1;
@@ -357,7 +357,7 @@ void calcular_valor_polinomio(Polinomio** polinomios, int num_polinomios, float 
     printf("Polinômio com o maior valor: %d\n", indice_maior_valor + 1);
 }
 
-void destruir_polinomio(Polinomio* polinomio) {
+void destruirPolinomio(Polinomio* polinomio) {
     free(polinomio->termos);
     free(polinomio);
 }
