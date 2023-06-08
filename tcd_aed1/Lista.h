@@ -25,13 +25,13 @@ typedef struct {
 
 Lista* criarLista();
 void destruirLista(Lista* lista);
-void inserirInicio(Lista* lista, int valor);
-void inserirFim(Lista* lista, int valor);
-void inserirPosicao(Lista* lista, int valor, int posicao);
+void inserirInicio(Lista* lista, Polinomio *valor, char id);
+void inserirFim(Lista* lista, Polinomio *valor, char id);
+void inserirPosicao(Lista* lista, Polinomio *valor, int posicao, char id);
 void removerInicio(Lista* lista);
 void removerFim(Lista* lista);
 void removerPosicao(Lista* lista, int posicao);
-int obterElemento(Lista* lista, int posicao);
+Polinomio* obterElemento(Lista* lista, char id);
 int tamanhoLista(Lista* lista);
 void exibirLista(Lista* lista);
 
