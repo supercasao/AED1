@@ -6,18 +6,13 @@
 
 Polinomio* inicializarPolinomio() {
     Polinomio* polinomio = (Polinomio*)malloc(sizeof(Polinomio));
-    polinomio->termos = NULL;
-    polinomio->tamanho = 0;
+    polinomio->termos = (Termo*)malloc(sizeof(Termo) * 1);
+    polinomio->tamanho = 1;
     return polinomio;
 }
 
 void exibirPolinomio(Polinomio* polinomio) {
-    if (polinomio->tamanho == 0) {
-        printf("P(x) = 0x^0\n");
-        return;
-    }
-
-    printf("P(x) = ");
+    printf("P(x) = 0x^0");
     for (int i = 0; i < polinomio->tamanho; i++) {
         Termo termo = polinomio->termos[i];
 
