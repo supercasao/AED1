@@ -166,3 +166,16 @@ void exibirLista(Lista* lista) {
     }
     printf("\n");
 }
+
+int compararTermos(const void* a, const void* b) {
+    const Termo* termoA = (const Termo*)a;
+    const Termo* termoB = (const Termo*)b;
+
+    // Ordenar em ordem decrescente com base nos graus
+    if (termoA->grau > termoB->grau)
+        return -1;
+    else if (termoA->grau < termoB->grau)
+        return 1;
+    else
+        return 0;
+}
