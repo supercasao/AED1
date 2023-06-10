@@ -114,3 +114,43 @@ void reinicializarPolinomio(Polinomio* polinomio) {
     polinomio->termos[0].expoente = 0;
     polinomio->tamanho = 1;
 }
+
+Polinomio* somarPolinomios(int id1, int id2) {
+    Polinomio* polinomio1 = obterPolinomioPorId(id1);
+    Polinomio* polinomio2 = obterPolinomioPorId(id2);
+
+    if (polinomio1 == NULL || polinomio2 == NULL) {
+        printf("Polinômio(s) inválido(s)!\n");
+        return NULL;
+    }
+
+    Polinomio* resultado = inicializarPolinomio();
+
+    // Percorre o primeiro polinômio e insere os termos no resultado
+    for (int i = 0; i < polinomio1->tamanho; i++) {
+        Termo termo1 = polinomio1->termos[i];
+        inserirTermo(resultado, termo1.coeficiente, termo1.expoente);
+    }
+
+    // Percorre o segundo polinômio e realiza a soma dos termos
+    for (int i = 0; i < polinomio2->tamanho; i++) {
+        Termo termo2 = polinomio2->termos[i];
+
+        int termoExistente = 0;
+        for (int j = 0; j < resultado->tamanho; j++) {
+            if (resultado->termos[j].expoente == termo2.expoente) {
+                // Soma o coeficiente do termo2 ao coeficiente do termo existente no resultado
+                resultado->termos[j].coeficiente += termo2.coeficiente;
+                termoExistente = 1;
+                break;
+            }
+        }
+
+        if (!termoExistente) {
+            // O termo2 não existe no resultado, então insere o termo2 no resultado
+            inserirTermo(resultado, termo2.coeficiente, termo2.expoente);
+        }
+    }
+
+    return resultado;
+}
