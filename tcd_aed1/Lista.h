@@ -3,6 +3,7 @@
 
 typedef struct no {
     int valor;
+    int id;
     struct no* proximo;
 } No;
 
