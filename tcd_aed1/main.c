@@ -77,7 +77,7 @@ int main()
         if( op == 6){
             printf("Digite um identificador para o polinomio:");
             scanf("%c",&id);
-            inserirFim(l,*po,id);
+            inserirFim(l,po,id);
         }
         if(op == 7){
             char id1,id2;
